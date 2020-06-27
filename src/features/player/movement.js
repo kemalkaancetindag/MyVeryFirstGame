@@ -17,6 +17,21 @@ const handleMovement = (player) => {
     }
   };
 
+  const getSpriteLocation = (direction, walkIndex) => {
+    switch (direction) {
+      case "SOUTH":
+        return `${SPRITE_SIZE * walkIndex}px ${SPRITE_SIZE * 0}px`;
+      case "EAST":
+        return `${SPRITE_SIZE * walkIndex}px ${SPRITE_SIZE * 1}px`;
+      case "WEST":
+        return `${SPRITE_SIZE * walkIndex}px ${SPRITE_SIZE * 2}px`;
+      case "NORTH":
+        return `${SPRITE_SIZE * walkIndex}px  ${SPRITE_SIZE * 3}px`;
+      default:
+        return null;
+    }
+  };
+
   const observeBoundaries = (oldPos, newPos) => {
     return (
       newPos[0] >= 0 &&
@@ -24,6 +39,12 @@ const handleMovement = (player) => {
       newPos[1] >= 0 &&
       newPos[1] <= MAP_HEIGHT - SPRITE_SIZE
     );
+  };
+
+  const getWalkIndex = () => {
+    const walkIndex = store.getState().player.walkIndex;
+
+    return walkIndex >= 7 ? 0 : walkIndex + 1;
   };
 
   const observeImpassable = (oldPos, newPos) => {
@@ -35,11 +56,15 @@ const handleMovement = (player) => {
     return nextTile < 5;
   };
 
-  const dispatchMove = (newPos) => {
+  const dispatchMove = (direction, newPos) => {
+    const walkIndex = getWalkIndex();
     store.dispatch({
       type: "MOVE_PLAYER",
       payload: {
         position: newPos,
+        direction: direction,
+        spriteLocation: getSpriteLocation(direction, walkIndex),
+        walkIndex,
       },
     });
   };
@@ -52,7 +77,7 @@ const handleMovement = (player) => {
       observeBoundaries(oldPos, newPos) &&
       observeImpassable(oldPos, newPos)
     ) {
-      dispatchMove(newPos);
+      dispatchMove(direction, newPos);
     } else {
     }
   };

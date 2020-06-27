@@ -1,6 +1,6 @@
 import React from "react";
 import player_walk from "./player_walk.png";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 import handleMovement from "./movement";
 
 const Player = (props) => {
@@ -11,7 +11,7 @@ const Player = (props) => {
         top: props.position[1],
         left: props.position[0],
         backgroundImage: `url('${player_walk}')`,
-        backgroundPosition: "0 0",
+        backgroundPosition: props.spriteLocation,
         width: "40px",
         height: "40px",
       }}

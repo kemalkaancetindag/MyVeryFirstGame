@@ -16,8 +16,8 @@ const World = (props) => {
     <div
       style={{
         width: "800px",
-        height: "400px",
-        margin: "20px auto",
+        height: "480px",
+        margin: "10px auto",
         position: "relative",
         backgroundColor: "green",
       }}

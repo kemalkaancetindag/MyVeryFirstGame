@@ -6,6 +6,10 @@
   background-color: green;
 }
 
+.chest {
+  background-image: url("/tiles/chest.png");
+}
+
 .rock {
   background-image: url("/tiles/rock.png");
 }
